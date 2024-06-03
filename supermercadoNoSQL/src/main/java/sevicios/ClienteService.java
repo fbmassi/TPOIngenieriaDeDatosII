@@ -48,5 +48,17 @@ public class ClienteService {
         return result.getDeletedCount();
     }
 
+    public boolean iniciarSesion(String nombre, String documentoIdentidad) {
+        Document query = new Document("nombre", nombre).append("documento_identidad", documentoIdentidad);
+        Document cliente = collection.find(query).first();
+        return cliente != null;
+    }
+
+    public Document obtenerCliente(String nombre, String direccion, String documentoIdentidad) {
+        Document query = new Document("nombre", nombre)
+                .append("direccion", direccion)
+                .append("documento_identidad", documentoIdentidad);
+        return collection.find(query).first();
+    }
 }
 

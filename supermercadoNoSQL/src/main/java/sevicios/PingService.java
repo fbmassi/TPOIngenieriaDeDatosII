@@ -8,7 +8,7 @@ import org.bson.Document;
 
 public class PingService {
 
-    private URLService urlService = new URLService();
+    private final URLService urlService = new URLService();
 
     public void Ping() {
         ServerApi serverApi = ServerApi.builder()

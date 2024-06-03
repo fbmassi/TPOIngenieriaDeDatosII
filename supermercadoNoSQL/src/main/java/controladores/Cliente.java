@@ -1,7 +1,10 @@
 package controladores;
 
 import negocios.*;
+import org.bson.Document;
+import sevicios.ClienteService;
 
+import java.awt.event.ActionListener;
 import java.util.*;
 
 /**
@@ -10,26 +13,40 @@ import java.util.*;
 public class Cliente {
 
     public Cliente(String nombre, String direccion, String documentoIdentidad) {
-        this.nombre = nombre;
-        this.direccion = direccion;
-        this.documentoIdentidad = documentoIdentidad;
+        this.clienteService = new ClienteService();
+        if (clienteService.obtenerCliente(nombre, direccion, documentoIdentidad) == null) {
+            clienteService.crearCliente(nombre, direccion, documentoIdentidad);
+            this.documentoCliente = clienteService.obtenerCliente(nombre, direccion, documentoIdentidad);
+            this.id = getDocumentoCliente().getObjectId("_id").toString();
+            this.nombre = nombre;
+            this.direccion = direccion;
+            this.documentoIdentidad = documentoIdentidad;
+        } else {
+            this.documentoCliente = clienteService.obtenerCliente(nombre, direccion, documentoIdentidad);
+            this.id = getDocumentoCliente().getObjectId("_id").toString();
+            this.nombre = nombre;
+            this.direccion = direccion;
+            this.documentoIdentidad = documentoIdentidad;
+        }
     }
 
-    private int id;
+    private String id;
     private String nombre;
     private String direccion;
     private String documentoIdentidad;
     private int tiempoConectado;
     private String categoria;
-    private Date ultimoInicioDeSesion ;
+    private Date ultimoInicioDeSesion;
+    private ClienteService clienteService;
+    private Document documentoCliente;
 
     public boolean iniciarSesion(String nombre, String dni) {
-        // TODO implement here
-        return false;
+        return clienteService.iniciarSesion(nombre, dni);
     }
 
     public void cerrarSesion() {
-        // TODO implement here
+        documentoCliente = null;
+        System.gc();
     }
 
     private void actualizarTiempoConectado(int minutos) {
@@ -137,5 +154,21 @@ public class Cliente {
 
     public void setUltimoInicioDeSesion(Date ultimoInicioDeSesion) {
         this.ultimoInicioDeSesion = ultimoInicioDeSesion;
+    }
+
+    public Document getDocumentoCliente() {
+        return documentoCliente;
+    }
+
+    public void setDocumentoCliente(Document documentoCliente) {
+        this.documentoCliente = documentoCliente;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

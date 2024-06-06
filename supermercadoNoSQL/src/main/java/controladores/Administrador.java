@@ -5,11 +5,16 @@ import negocios.*;
 import org.bson.Document;
 import org.springframework.boot.jdbc.metadata.AbstractDataSourcePoolMetadata;
 import sevicios.AdminService;
+import sevicios.ProductService;
+
+import javax.print.Doc;
 
 /**
  * 
  */
 public class Administrador {
+
+    private ProductService productService;
 
     public Administrador(String usuario, String contraseña) {
         this.adminService = new AdminService();
@@ -19,11 +24,15 @@ public class Administrador {
             this.id = documentoAdmin.getObjectId("_id").toString();
             this.usuario = usuario;
             this.contraseña = contraseña;
+            productService = new ProductService();
+
         } else {
             this.documentoAdmin = adminService.obtenerAdmin(usuario, contraseña);
             this.id = documentoAdmin.getObjectId("_id").toString();
             this.usuario = usuario;
             this.contraseña = contraseña;
+            productService = new ProductService();
+
         }
     }
 
@@ -42,12 +51,24 @@ public class Administrador {
         System.gc();
     }
 
-    public void agregarProducto(String nombreProducto, String Descripcion, Double precio) {
-        // TODO implement here
+    public String agregarProducto(String nombreProducto, String descripcion, String precio) {
+        return productService.crearProducto(nombreProducto, descripcion, Double.parseDouble(precio));
     }
 
     public void eliminarProducto(String nombreProducto) {
-        // TODO implement here
+        productService.eliminarProducto(nombreProducto);
+    }
+
+    public List<Document> obtenerTodosLosProductos() {
+        return productService.obtenerTodosLosProductos();
+    }
+
+    public Document obtenerProductoPorNombre(String nombreProducto) {
+        return productService.obtenerProductoPorNombre(nombreProducto);
+    }
+
+    public boolean actualizarPrecioProducto(String nombreProducto, double nuevoPrecio) {
+        return productService.actualizarPrecioProducto(nombreProducto, nuevoPrecio);
     }
 
     private List<CambioProducto> traerLogDeCatalogo() {

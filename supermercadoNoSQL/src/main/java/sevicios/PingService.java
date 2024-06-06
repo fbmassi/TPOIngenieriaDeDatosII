@@ -34,14 +34,11 @@ public class PingService {
     }
 
      public void PingRedis() {
-        String redisHost = "redis-17084.c308.sa-east-1-1.ec2.redns.redis-cloud.com";
-        int redisPort = 17084;
-        String redisPassword = "hDdLN1uyUp6FruxMqtal5VWsnr4gqlKo";  // Reemplaza con tu contraseña
 
-         Jedis jedis = new Jedis(redisHost, redisPort);
+         Jedis jedis = new Jedis(urlService.getRedisHost(), urlService.getRedisPort());
 
          try {
-             jedis.auth(redisPassword);
+             jedis.auth(urlService.getRedisPassword());
              String response = jedis.ping();
              System.out.println("Ping response: " + response);
          } catch (JedisConnectionException e) {

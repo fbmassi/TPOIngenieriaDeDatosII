@@ -9,6 +9,7 @@ public class URLService {
     private String dbSupermercadoMongoDB = "supermercado";
     private String clientesCollectionMongoDB = "clientes";
     private String administradoresCollectionMongoDB = "administradores";
+    private String productsCollectionMongoDB = "productos";
 
     //Metodos MongoDB
     public String getConnectionStringMongoDB() { return connectionStringMongoDB; }
@@ -17,4 +18,11 @@ public class URLService {
     public String getClientesCollectionMongoDB() { return clientesCollectionMongoDB; }
     public String getAdministradoresCollectionMongoDB() { return administradoresCollectionMongoDB; }
 
+    public String getProductsCollectionMongoDB() {
+        return productsCollectionMongoDB;
+    }
+
+    public void setProductsCollectionMongoDB(String productsCollectionMongoDB) {
+        this.productsCollectionMongoDB = productsCollectionMongoDB;
+    }
 }

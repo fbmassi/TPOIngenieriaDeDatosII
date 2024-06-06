@@ -5,12 +5,14 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.exceptions.JedisConnectionException;
 
 public class PingService {
 
     private final URLService urlService = new URLService();
 
-    public void Ping() {
+    public void PingMongoDB() {
         ServerApi serverApi = ServerApi.builder()
                 .version(ServerApiVersion.V1)
                 .build();
@@ -29,5 +31,27 @@ public class PingService {
                 e.printStackTrace();
             }
         }
+    }
+
+     public void PingRedis() {
+        String redisHost = "redis-17084.c308.sa-east-1-1.ec2.redns.redis-cloud.com";
+        int redisPort = 17084;
+        String redisPassword = "hDdLN1uyUp6FruxMqtal5VWsnr4gqlKo";  // Reemplaza con tu contraseña
+
+         Jedis jedis = new Jedis(redisHost, redisPort);
+
+         try {
+             jedis.auth(redisPassword);
+             String response = jedis.ping();
+             System.out.println("Ping response: " + response);
+         } catch (JedisConnectionException e) {
+             System.err.println("Error de conexión a Redis: " + e.getMessage());
+             e.printStackTrace();
+         } finally {
+             if (jedis != null) {
+                 jedis.close();
+             }
+         }
+    }
     }
 }

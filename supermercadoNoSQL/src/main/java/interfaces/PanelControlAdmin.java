@@ -9,7 +9,7 @@ public class PanelControlAdmin extends JFrame{
     private JButton verOperacionesButton;
     private JButton atrásButton;
     private JPanel panel;
-    private PanelIniciarSesion panelIniciarSesion;
+    private PanelIniciarSesionAdmin panelIniciarSesion;
     private PanelModificaciónDeProductos panelModificaciónDeProductos;
 
     public PanelControlAdmin() {
@@ -37,11 +37,11 @@ public class PanelControlAdmin extends JFrame{
         });
     }
 
-    public PanelIniciarSesion getPanelIniciarSesion() {
+    public PanelIniciarSesionAdmin getPanelIniciarSesion() {
         return panelIniciarSesion;
     }
 
-    public void setPanelIniciarSesion(PanelIniciarSesion panelIniciarSesion) {
+    public void setPanelIniciarSesion(PanelIniciarSesionAdmin panelIniciarSesion) {
         this.panelIniciarSesion = panelIniciarSesion;
     }
 }

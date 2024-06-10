@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class PanelIniciarSesion extends JFrame{
+public class PanelIniciarSesionAdmin extends JFrame{
     private JPanel panel;
     private JTextField usuarioTextField;
     private JTextField contraseñaTextField;
@@ -13,7 +13,7 @@ public class PanelIniciarSesion extends JFrame{
     private PanelAdministradores panelAdministradores;
     private PanelControlAdmin panelControlAdmin;
 
-    public PanelIniciarSesion() {
+    public PanelIniciarSesionAdmin() {
 
         setTitle("Panel Iniciar Sesion");
         setContentPane(panel);

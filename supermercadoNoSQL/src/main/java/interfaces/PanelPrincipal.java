@@ -12,6 +12,7 @@ public class PanelPrincipal extends JFrame{
     private JPanel panel;
     private JButton clientesButton;
     private PanelAdministradores panelAdministradores;
+    private PanelClientes panelClientes;
     private Sistema sistema;
 
     public PanelPrincipal() {
@@ -24,12 +25,21 @@ public class PanelPrincipal extends JFrame{
         setLocationRelativeTo(null);
         panelAdministradores = new PanelAdministradores();
         panelAdministradores.setPanelPrincipal(this);
+        panelClientes = new PanelClientes();
+        panelClientes.setPanelPrincipal(this);
 
         administradoresButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
                 panelAdministradores.setVisible(true);
+            }
+        });
+        clientesButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setVisible(false);
+                panelClientes.setVisible(true);
             }
         });
     }

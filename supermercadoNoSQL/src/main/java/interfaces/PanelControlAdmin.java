@@ -11,7 +11,6 @@ public class PanelControlAdmin extends JFrame{
     private JPanel panel;
     private PanelIniciarSesion panelIniciarSesion;
     private PanelModificaciónDeProductos panelModificaciónDeProductos;
-    private PanelDeControlDeLog panelDeControlDeLog;
 
     public PanelControlAdmin() {
         setTitle("Panel de Control de Administrador");
@@ -20,8 +19,6 @@ public class PanelControlAdmin extends JFrame{
         setLocationRelativeTo(null);
         panelModificaciónDeProductos = new PanelModificaciónDeProductos();
         panelModificaciónDeProductos.setPanelControlAdmin(this);
-        panelDeControlDeLog = new PanelDeControlDeLog();
-        panelDeControlDeLog.setPanelControlAdmin(this);
 
 
         atrásButton.addActionListener(new ActionListener() {

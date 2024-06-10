@@ -1,6 +1,8 @@
 package sevicios;
 
 import com.mongodb.client.*;
+import com.mongodb.client.model.Updates;
+import com.mongodb.client.model.Filters;
 import com.mongodb.client.result.UpdateResult;
 import org.bson.Document;
 
@@ -14,7 +16,6 @@ public class ProductService {
 
     private URLService urlService;
     private MongoCollection<Document> collection;
-
 
     public ProductService() {
         urlService = new URLService();
@@ -40,6 +41,11 @@ public class ProductService {
         return productos;
     }
 
+    public long borrarTodosLosProductos() {
+        DeleteResult result = collection.deleteMany(new Document());
+        return result.getDeletedCount();
+    }
+
     public Document obtenerProductoPorNombre(String nombreProducto) {
         Document query = new Document("nombre", nombreProducto);
         return collection.find(query).first();
@@ -50,12 +56,16 @@ public class ProductService {
         return result.getDeletedCount() > 0;
     }
 
-    public boolean actualizarPrecioProducto(String nombreProducto, double nuevoPrecio) {
+    public boolean modificarPrecioProducto(String nombreProducto, String nuevoPrecio) {
         Document query = new Document("nombre", nombreProducto);
         Document update = new Document("$set", new Document("precio", nuevoPrecio));
         UpdateResult result = collection.updateOne(query, update);
         return result.getModifiedCount() > 0;
     }
 
+    public boolean modificarDescripcionProducto(String nombreProducto, String nuevaDescripcion) {
+        UpdateResult result = collection.updateOne( Filters.eq("nombre", nombreProducto), Updates.set("descripcion", nuevaDescripcion));
+        return result.getModifiedCount() > 0;
+    }
 
 }

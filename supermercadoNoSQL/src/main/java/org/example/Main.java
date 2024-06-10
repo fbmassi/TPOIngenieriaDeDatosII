@@ -1,6 +1,10 @@
 package org.example;
 
+import controladores.Administrador;
+import controladores.Sistema;
 import sevicios.PingService;
+
+import java.util.List;
 
 public class Main {
 

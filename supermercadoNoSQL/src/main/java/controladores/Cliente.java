@@ -3,31 +3,23 @@ package controladores;
 import negocios.*;
 import org.bson.Document;
 import sevicios.ClienteService;
-
 import java.awt.event.ActionListener;
 import java.util.*;
 
-/**
- * 
- */
 public class Cliente {
 
     public Cliente(String nombre, String direccion, String documentoIdentidad) {
         this.clienteService = new ClienteService();
-        if (clienteService.obtenerCliente(nombre, direccion, documentoIdentidad) == null) {
-            clienteService.crearCliente(nombre, direccion, documentoIdentidad);
-            this.documentoCliente = clienteService.obtenerCliente(nombre, direccion, documentoIdentidad);
-            this.id = getDocumentoCliente().getObjectId("_id").toString();
-            this.nombre = nombre;
-            this.direccion = direccion;
-            this.documentoIdentidad = documentoIdentidad;
-        } else {
-            this.documentoCliente = clienteService.obtenerCliente(nombre, direccion, documentoIdentidad);
-            this.id = getDocumentoCliente().getObjectId("_id").toString();
-            this.nombre = nombre;
-            this.direccion = direccion;
-            this.documentoIdentidad = documentoIdentidad;
-        }
+        clienteService.crearCliente(nombre, direccion, documentoIdentidad);
+    }
+
+    public Cliente(String nombre, String documentoIdentidad) {
+        this.clienteService = new ClienteService();
+        this.documentoCliente = clienteService.obtenerCliente(nombre, documentoIdentidad);
+        setId(getDocumentoCliente().getObjectId("_id").toString());
+        setNombre(getDocumentoCliente().getObjectId("nombre").toString());
+        setDireccion(getDocumentoCliente().getObjectId("direccion").toString());
+        setDocumentoIdentidad(getDocumentoCliente().getObjectId("documento_identidad").toString());
     }
 
     private String id;
@@ -39,6 +31,7 @@ public class Cliente {
     private Date ultimoInicioDeSesion;
     private ClienteService clienteService;
     private Document documentoCliente;
+
 
     public boolean iniciarSesion(String nombre, String dni) {
         return clienteService.iniciarSesion(nombre, dni);
@@ -111,63 +104,48 @@ public class Cliente {
     public String getNombre() {
         return nombre;
     }
-
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
     public String getDireccion() {
         return direccion;
     }
-
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
-
     public String getDocumentoIdentidad() {
         return documentoIdentidad;
     }
-
     public void setDocumentoIdentidad(String documentoIdentidad) {
         this.documentoIdentidad = documentoIdentidad;
     }
-
     public int getTiempoConectado() {
         return tiempoConectado;
     }
-
     public void setTiempoConectado(int tiempoConectado) {
         this.tiempoConectado = tiempoConectado;
     }
-
     public String getCategoria() {
         return categoria;
     }
-
     public void setCategoria(String categoria) {
         this.categoria = categoria;
     }
-
     public Date getUltimoInicioDeSesion() {
         return ultimoInicioDeSesion;
     }
-
     public void setUltimoInicioDeSesion(Date ultimoInicioDeSesion) {
         this.ultimoInicioDeSesion = ultimoInicioDeSesion;
     }
-
     public Document getDocumentoCliente() {
         return documentoCliente;
     }
-
     public void setDocumentoCliente(Document documentoCliente) {
         this.documentoCliente = documentoCliente;
     }
-
     public String getId() {
         return id;
     }
-
     public void setId(String id) {
         this.id = id;
     }

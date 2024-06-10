@@ -1,107 +1,66 @@
 package negocios;
 
-/**
- * 
- */
+import org.bson.Document;
+import sevicios.ProductService;
+
 public class Producto {
 
-    /**
-     * Default constructor
-     */
-    public Producto(String nombreProducto, String descricpion, double precio) {
-        this.nombreProducto = nombreProducto;
-        this.descricpion = descricpion;
-        this.precio = precio;
+    public Producto(String nombreProducto, String descricpion, Double precio) {
+        productService = new ProductService();
+        productService.crearProducto(nombreProducto, descricpion, precio);
     }
 
-    /**
-     * 
-     */
-    private int id;
+    public Producto(String nombreProducto) {
+        productService = new ProductService();
+        this.documentoProducto = productService.obtenerProductoPorNombre(nombreProducto);
+        this.id = documentoProducto.getObjectId("_id").toString();
+        setNombreProducto(documentoProducto.getString("nombre"));
+        setDescricpion(documentoProducto.getString("descripcion"));
+        Double precio = documentoProducto.getDouble("precio");
+        setPrecio(precio);
+    }
 
-    /**
-     * 
-     */
+    public Producto() {
+        productService = new ProductService();
+    }
+
+    private String id;
     private String nombreProducto;
-
-    /**
-     * 
-     */
     private String descricpion;
+    private Double precio;
+    private ProductService productService;
+    private Document documentoProducto;
 
-    /**
-     * 
-     */
-    private double precio;
-
-    /**
-     * 
-     */
-    private String fotos;
-
-    /**
-     * 
-     */
-    private String videos;
-
-    /**
-     * 
-     */
-    private String comentarios;
-
-    /**
-     * @param double nuevoPrecio 
-     * @return
-     */
-    public void actualizarPrecio(Double nuevoPrecio) {
-        // TODO implement here
+    public void actualizarPrecio(String nuevoPrecio, String operador) {
+        boolean modificación  = productService.modificarPrecioProducto(this.getNombreProducto(), nuevoPrecio);
+        if (modificación) {
+            CambioProducto cambioProducto = new CambioProducto(this, "precio", this.getPrecio(), nuevoPrecio.toString(), operador);
+            cambioProducto.registrarCambioEnLog();
+        }
     }
 
-    /**
-     * @param String comentario 
-     * @return
-     */
-    public void agregarComentario(String comentario) {
-        // TODO implement here
+    public void actualizarDescripción(String nuevaDescripción, String operador) {
+        boolean modificación  = productService.modificarDescripcionProducto(this.getNombreProducto(), nuevaDescripción);
+        if (modificación) {
+            CambioProducto cambioProducto = new CambioProducto(this, "descripcion", getDescricpion(), nuevaDescripción, operador);
+            cambioProducto.registrarCambioEnLog();
+        }
     }
 
-    /**
-     * @param String foto 
-     * @return
-     */
-    public void agregarFoto(String foto) {
-        // TODO implement here
+    public void eliminarProducto(String operador) {
+        boolean eliminación = productService.eliminarProducto(getNombreProducto());
+        if (eliminación) {
+            CambioProducto cambioProducto = new CambioProducto(this, operador);
+            cambioProducto.registrarEliminaciónEnLog();
+        }
     }
 
-    /**
-     * @param String video 
-     * @return
-     */
-    public void agregarVideo(String video) {
-        // TODO implement here
-    }
-
-    public String getNombreProducto() {
-        return nombreProducto;
-    }
-
-    public void setNombreProducto(String nombreProducto) {
-        this.nombreProducto = nombreProducto;
-    }
-
-    public String getDescricpion() {
-        return descricpion;
-    }
-
-    public void setDescricpion(String descricpion) {
-        this.descricpion = descricpion;
-    }
-
-    public double getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(double precio) {
-        this.precio = precio;
-    }
+    public String getNombreProducto() { return nombreProducto; }
+    public void setNombreProducto(String nombreProducto) { this.nombreProducto = nombreProducto; }
+    public String getDescricpion() { return descricpion; }
+    public void setDescricpion(String descricpion) { this.descricpion = descricpion; }
+    public String getPrecio() { return precio.toString(); }
+    public void setPrecio( Double precio) { this.precio = precio; }
+    public String getId() { return id; }
+    public Document getDocumentoProducto() { return documentoProducto; }
 }

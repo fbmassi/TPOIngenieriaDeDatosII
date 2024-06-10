@@ -54,11 +54,11 @@ public class ClienteService {
         return cliente != null;
     }
 
-    public Document obtenerCliente(String nombre, String direccion, String documentoIdentidad) {
+    public Document obtenerCliente(String nombre, String documentoIdentidad) {
         Document query = new Document("nombre", nombre)
-                .append("direccion", direccion)
                 .append("documento_identidad", documentoIdentidad);
         return collection.find(query).first();
     }
+
 }
 

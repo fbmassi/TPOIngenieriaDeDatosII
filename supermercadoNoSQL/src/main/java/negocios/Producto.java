@@ -16,7 +16,13 @@ public class Producto {
         this.id = documentoProducto.getObjectId("_id").toString();
         setNombreProducto(documentoProducto.getString("nombre"));
         setDescricpion(documentoProducto.getString("descripcion"));
-        Double precio = documentoProducto.getDouble("precio");
+        Object precioObj = documentoProducto.get("precio"); // Obtiene el precio como un Object
+        Double precio = 0.0;
+        if (precioObj instanceof Double) {
+            precio = (Double) precioObj;
+        } else if (precioObj instanceof String) {
+            precio = Double.parseDouble((String) precioObj);
+        }
         setPrecio(precio);
     }
 
@@ -31,10 +37,10 @@ public class Producto {
     private ProductService productService;
     private Document documentoProducto;
 
-    public void actualizarPrecio(String nuevoPrecio, String operador) {
+    public void actualizarPrecio(Double nuevoPrecio, String operador) {
         boolean modificación  = productService.modificarPrecioProducto(this.getNombreProducto(), nuevoPrecio);
         if (modificación) {
-            CambioProducto cambioProducto = new CambioProducto(this, "precio", this.getPrecio(), nuevoPrecio.toString(), operador);
+            CambioProducto cambioProducto = new CambioProducto(this, "precio", this.getPrecio().toString(), nuevoPrecio.toString(), operador);
             cambioProducto.registrarCambioEnLog();
         }
     }
@@ -59,7 +65,7 @@ public class Producto {
     public void setNombreProducto(String nombreProducto) { this.nombreProducto = nombreProducto; }
     public String getDescricpion() { return descricpion; }
     public void setDescricpion(String descricpion) { this.descricpion = descricpion; }
-    public String getPrecio() { return precio.toString(); }
+    public Double getPrecio() { return precio; }
     public void setPrecio( Double precio) { this.precio = precio; }
     public String getId() { return id; }
     public Document getDocumentoProducto() { return documentoProducto; }

@@ -17,20 +17,19 @@ public class PanelCrearProductos extends JFrame{
     private JComboBox productos;
     private JPanel panel;
     private PanelControlAdmin panelControlAdmin;
-    private Sistema sistema;
-    private Administrador administrador;
 
     public PanelCrearProductos() {
 
-        setTitle("Panel de Control de Administrador");
+        setTitle("Panel de Creación de Productos");
         setContentPane(panel);
-        setSize(500, 500);
+        setSize(1500, 500);
         setLocationRelativeTo(null);
 
         atrasButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
+                productos.removeAllItems();
                 panelControlAdmin.setVisible(true);
             }
         });
@@ -41,7 +40,6 @@ public class PanelCrearProductos extends JFrame{
                 String descripcion = descripciónTextField.getText();
                 String precioText = precioTextField.getText();
 
-                // Validación de datos
                 if (nombre.isEmpty() || descripcion.isEmpty() || precioText.isEmpty()) {
                     JOptionPane.showMessageDialog(panel, "Todos los campos deben estar llenos.");
                     return;
@@ -55,19 +53,19 @@ public class PanelCrearProductos extends JFrame{
                     return;
                 }
 
-                administrador.agregarProducto(nombre, descripcion, precio);
-                boolean productoCreado = sistema.existeProducto(nombre);
+                panelControlAdmin.getAdministrador().agregarProducto(nombre, descripcion, precio);
+                boolean productoCreado = panelControlAdmin.getPanelIniciarSesionAdmin().getPanelAdministradores().getPanelPrincipal().getSistema().existeProducto(nombre);
                 
                 if (productoCreado) {
                     productos.addItem(nombre + " - " + descripcion + " - $" + precio);
                     JOptionPane.showMessageDialog(panel, "Producto creado correctamente.");
-                    // Limpiar los campos de texto
-                    nombreTextField.setText("");
-                    descripciónTextField.setText("");
-                    precioTextField.setText("");
                 } else {
                     JOptionPane.showMessageDialog(panel, "Error al crear el producto.");
                 }
+
+                nombreTextField.setText("");
+                descripciónTextField.setText("");
+                precioTextField.setText("");
             }
         });
     }
@@ -80,11 +78,11 @@ public class PanelCrearProductos extends JFrame{
         this.panelControlAdmin = panelControlAdmin;
     }
 
-    public void setSistema(Sistema sistema) {
-        this.sistema = sistema;
-    }
 
-    public void setAdministrador(Administrador administrador) {
-        this.administrador = administrador;
+    public void llenarListas () {
+        List<String> products = panelControlAdmin.getPanelIniciarSesionAdmin().getPanelAdministradores().getPanelPrincipal().getSistema().obtenerProductosTexto();
+        for (String product: products) {
+            productos.addItem(product);
+        }
     }
 }

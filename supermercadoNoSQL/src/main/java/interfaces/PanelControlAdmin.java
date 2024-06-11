@@ -28,6 +28,8 @@ public class PanelControlAdmin extends JFrame{
         panelModificaciónDeProductos.setPanelControlAdmin(this);
         panelCrearProductos = new PanelCrearProductos();
         panelCrearProductos.setPanelControlAdmin(this);
+        panelControlDeLog = new PanelControlDeLog();
+        panelControlDeLog.setPanelControlAdmin(this);
 
 
         atrásButton.addActionListener(new ActionListener() {
@@ -43,6 +45,7 @@ public class PanelControlAdmin extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
+                panelModificaciónDeProductos.llenarListas();
                 panelModificaciónDeProductos.setVisible(true);
             }
         });
@@ -50,7 +53,16 @@ public class PanelControlAdmin extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
+                panelCrearProductos.llenarListas();
                 panelCrearProductos.setVisible(true);
+            }
+        });
+        verOperacionesButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setVisible(false);
+                panelControlDeLog.llenarListas();
+                panelControlDeLog.setVisible(true);
             }
         });
     }

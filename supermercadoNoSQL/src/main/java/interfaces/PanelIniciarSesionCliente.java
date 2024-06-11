@@ -12,7 +12,6 @@ public class PanelIniciarSesionCliente extends JFrame {
     private JButton atrásButton;
     private PanelClientes panelClientes;
     private PanelControlCliente panelControlCliente;
-    private ErrorDeInicioDeSesion errorDeInicioDeSesion;
 
     public PanelIniciarSesionCliente() {
 
@@ -22,7 +21,6 @@ public class PanelIniciarSesionCliente extends JFrame {
         setLocationRelativeTo(null);
         panelControlCliente = new PanelControlCliente();
         panelControlCliente.setPanelIniciarSesionCliente(this);
-        errorDeInicioDeSesion = new ErrorDeInicioDeSesion();
 
         atrásButton.addActionListener(new ActionListener() {
             @Override
@@ -43,7 +41,7 @@ public class PanelIniciarSesionCliente extends JFrame {
                     panelControlCliente.setVisible(true);
                     panelControlCliente.setCliente(panelClientes.getPanelPrincipal().getSistema().recuperarCliente(nombre, DNI));
                 } else {
-                    errorDeInicioDeSesion.setVisible(true);
+                    JOptionPane.showMessageDialog(panel, "Error al iniciar sesion. Nombre o DNI incorrecto.");
                 };
             }
         });

@@ -41,16 +41,12 @@ public class Administrador {
 
     public void actualizarPrecioProducto(String nombreProducto, double nuevoPrecio) {
         Producto producto = new Producto(nombreProducto);
-        producto.actualizarPrecio(producto.getPrecio(), this.getUsuario());
+        producto.actualizarPrecio(nuevoPrecio, this.getUsuario());
     }
 
     public void actualizarDescripcionProducto(String nombreProducto, String nuevaDescripción) {
         Producto producto = new Producto(nombreProducto);
         producto.actualizarDescripción(nuevaDescripción, this.getUsuario());
-    }
-
-    public List<String> traerLogDeProducto(String nombreProducto) {
-        return logService.obtenerLogPorNombreProducto(nombreProducto);
     }
 
     public List<String> traerLogDeTodoElCatalogo() {

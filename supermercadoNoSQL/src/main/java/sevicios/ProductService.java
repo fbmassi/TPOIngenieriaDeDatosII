@@ -46,9 +46,25 @@ public class ProductService {
         FindIterable<Document> iterador = collection.find();
         for (Document doc : iterador) {
             String nombre = doc.getString("nombre");
-            String descripción = doc.getString("descripcion");
-            Double precio = doc.getDouble("precio");
-            productos.add(nombre + " - " + descripción + " - $" + precio);
+            String descripcion = doc.getString("descripcion");
+            Object precioObj = doc.get("precio"); // Obtiene el precio como un Object
+
+            // Verifica el tipo de dato del precio
+            if (precioObj instanceof Double) {
+                Double precio = (Double) precioObj;
+                productos.add(nombre + " - " + descripcion + " - $" + precio);
+            } else if (precioObj instanceof String) {
+                try {
+                    Double precio = Double.parseDouble((String) precioObj);
+                    productos.add(nombre + " - " + descripcion + " - $" + precio);
+                } catch (NumberFormatException e) {
+                    // Maneja el error si no se puede convertir a Double
+                    System.err.println("Error: No se puede convertir el precio a Double para el producto: " + nombre);
+                }
+            } else {
+                // Maneja otros tipos de datos para el precio si es necesario
+                System.err.println("Error: Tipo de dato no soportado para el precio para el producto: " + nombre);
+            }
         }
         return productos;
     }
@@ -60,18 +76,18 @@ public class ProductService {
 
     public Document obtenerProductoPorNombre(String nombreProducto) {
         Document query = new Document("nombre", nombreProducto);
-        return collection.find(query).first();
+        Document producto = collection.find(query).first();
+        return producto;
     }
+
 
     public boolean eliminarProducto(String nombreProducto) {
         DeleteResult result = collection.deleteOne(new Document("nombre", nombreProducto));
         return result.getDeletedCount() > 0;
     }
 
-    public boolean modificarPrecioProducto(String nombreProducto, String nuevoPrecio) {
-        Document query = new Document("nombre", nombreProducto);
-        Document update = new Document("$set", new Document("precio", nuevoPrecio));
-        UpdateResult result = collection.updateOne(query, update);
+    public boolean modificarPrecioProducto(String nombreProducto, Double nuevoPrecio) {
+        UpdateResult result = collection.updateOne(Filters.eq("nombre", nombreProducto), Updates.set("precio", nuevoPrecio));
         return result.getModifiedCount() > 0;
     }
 

@@ -12,7 +12,6 @@ public class PanelIniciarSesionAdmin extends JFrame{
     private JButton atrásButton;
     private PanelAdministradores panelAdministradores;
     private PanelControlAdmin panelControlAdmin;
-    private ErrorDeInicioDeSesion errorDeInicioDeSesion;
 
     public PanelIniciarSesionAdmin() {
 
@@ -22,7 +21,6 @@ public class PanelIniciarSesionAdmin extends JFrame{
         setLocationRelativeTo(null);
         panelControlAdmin = new PanelControlAdmin();
         panelControlAdmin.setPanelIniciarSesionAdmin(this);
-        errorDeInicioDeSesion = new ErrorDeInicioDeSesion();
 
         atrásButton.addActionListener(new ActionListener() {
             @Override
@@ -43,7 +41,7 @@ public class PanelIniciarSesionAdmin extends JFrame{
                     panelControlAdmin.setVisible(true);
                     panelControlAdmin.setAdministrador(panelAdministradores.getPanelPrincipal().getSistema().recupararAdmin(usuario, contraseña));
                 } else {
-                    errorDeInicioDeSesion.setVisible(true);
+                    JOptionPane.showMessageDialog(panel, "Error en el inicio de sesion. Ususario o Contraseña incorrectos.");
                 };
             }
         });

@@ -1,8 +1,5 @@
 package interfaces;
 
-import controladores.Administrador;
-import controladores.Sistema;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,7 +8,7 @@ import java.util.List;
 public class PanelModificaciónDeProductos extends JFrame {
     private JPanel panel;
     private JButton atrásButton;
-    private JComboBox<String> comboBox1;
+    private JComboBox<String> productos;
     private JTextField nuevoPrecioTextField;
     private JTextField nuevaDescripciónTextField;
     private JButton cambiarPrecioButton;
@@ -23,13 +20,14 @@ public class PanelModificaciónDeProductos extends JFrame {
 
         setTitle("Panel de Control de Catalogo");
         setContentPane(panel);
-        setSize(500, 500);
+        setSize(1000, 500);
         setLocationRelativeTo(null);
 
         atrásButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
+                productos.removeAllItems();
                 panelControlAdmin.setVisible(true);
             }
         });
@@ -37,14 +35,11 @@ public class PanelModificaciónDeProductos extends JFrame {
         eliminarProductoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String producto = (String) comboBox1.getSelectedItem();
+                String producto = (String) productos.getSelectedItem();
+                productos.removeItem(producto);
                 if (producto != null) {
                     panelControlAdmin.getAdministrador().eliminarProducto(producto);
                     JOptionPane.showMessageDialog(panel, "Producto eliminado correctamente.");
-                }
-                List<String> products = panelControlAdmin.getPanelIniciarSesionAdmin().getPanelAdministradores().getPanelPrincipal().getSistema().obtenerNombreProducto();
-                for (String product: products) {
-                    comboBox1.addItem(product);
                 }
             }
         });
@@ -52,23 +47,20 @@ public class PanelModificaciónDeProductos extends JFrame {
         cambiarDescripciónButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String selectedProduct = (String) comboBox1.getSelectedItem();
+                String selectedProduct = (String) productos.getSelectedItem();
                 String nuevaDescripcion = nuevaDescripciónTextField.getText();
                 if (selectedProduct != null && !nuevaDescripcion.isEmpty()) {
                     panelControlAdmin.getAdministrador().actualizarDescripcionProducto(selectedProduct, nuevaDescripcion);
                     JOptionPane.showMessageDialog(panel, "Descripción cambiada correctamente.");
                 }
                 nuevaDescripciónTextField.setText("");
-                List<String> products = panelControlAdmin.getPanelIniciarSesionAdmin().getPanelAdministradores().getPanelPrincipal().getSistema().obtenerNombreProducto();
-                for (String product: products) {
-                    comboBox1.addItem(product);
-                }
+
             }
         });
         cambiarPrecioButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String selectedProduct = (String) comboBox1.getSelectedItem();
+                String selectedProduct = (String) productos.getSelectedItem();
                 String nuevoPrecioText = nuevoPrecioTextField.getText();
                 if (selectedProduct != null && !nuevoPrecioText.isEmpty()) {
                     try {
@@ -80,10 +72,6 @@ public class PanelModificaciónDeProductos extends JFrame {
                     }
                 }
                 nuevoPrecioTextField.setText("");
-                List<String> products = panelControlAdmin.getPanelIniciarSesionAdmin().getPanelAdministradores().getPanelPrincipal().getSistema().obtenerNombreProducto();
-                for (String product: products) {
-                    comboBox1.addItem(product);
-                }
             }
         });
     }
@@ -99,7 +87,7 @@ public class PanelModificaciónDeProductos extends JFrame {
     public void llenarListas () {
         List<String> products = panelControlAdmin.getPanelIniciarSesionAdmin().getPanelAdministradores().getPanelPrincipal().getSistema().obtenerNombreProducto();
         for (String product: products) {
-            comboBox1.addItem(product);
+            productos.addItem(product);
         }
     }
 }

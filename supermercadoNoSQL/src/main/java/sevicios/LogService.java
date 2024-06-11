@@ -1,7 +1,10 @@
 package sevicios;
 
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.JedisPoolConfig;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -9,13 +12,44 @@ public class LogService {
 
     private URLService urlService;
     private Jedis jedis;
-    SimpleDateFormat dateFormatter;
+    private SimpleDateFormat dateFormatter;
+    private JedisPool jedisPool;
+
+    class LogComparator implements Comparator<String> {
+        private SimpleDateFormat dateFormatter;
+
+        public LogComparator() {
+            dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        }
+
+        @Override
+        public int compare(String log1, String log2) {
+            try {
+                String fechaStr1 = obtenerFecha(log1);
+                String fechaStr2 = obtenerFecha(log2);
+                Date fecha1 = dateFormatter.parse(fechaStr1);
+                Date fecha2 = dateFormatter.parse(fechaStr2);
+                return fecha2.compareTo(fecha1); // Orden descendente
+            } catch (ParseException e) {
+                // Manejar error de análisis de fecha
+                e.printStackTrace();
+                return 0; // No se puede comparar, devuelve 0
+            }
+        }
+
+        private String obtenerFecha(String log) {
+            int indiceInicio = log.indexOf("Fecha: ") + 7;
+            int indiceFin = log.length();
+            return log.substring(indiceInicio, indiceFin);
+        }
+    }
 
     public LogService() {
         this.urlService = new URLService();
-        jedis = new Jedis(urlService.getRedisHost(), urlService.getRedisPort());
-        jedis.auth(urlService.getRedisPassword());
+        JedisPoolConfig poolConfig = new JedisPoolConfig();
+        this.jedisPool = new JedisPool(poolConfig, urlService.getRedisHost(), urlService.getRedisPort(), 2000, urlService.getRedisPassword());
         this.dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        jedis = jedisPool.getResource();
     }
 
     public void registrarCreacion(String productoId, String nombreProducto, String operador) {
@@ -42,27 +76,20 @@ public class LogService {
         jedis.lpush(logKey, logEntry);
     }
 
-    public List<String> obtenerLogPorNombreProducto(String nombreProducto) {
-        Set<String> logKeys = jedis.keys("log:producto:*");
-        List<String> logsProducto = new ArrayList<>();
-        for (String logKey : logKeys) {
-            List<String> logs = jedis.lrange(logKey, 0, -1);
-            for (String log : logs) {
-                if (log.contains("Nombre: " + nombreProducto)) {
-                    logsProducto.add(log);
-                }
-            }
-        }
-        return logsProducto;
-    }
 
     public List<String> obtenerTodosLosLogs() {
-        Set<String> logKeys = jedis.keys("log:producto:*");
-        List<String> todosLosLogs = new ArrayList<>();
-        for (String logKey : logKeys) {
-            List<String> logs = jedis.lrange(logKey, 0, -1);
-            todosLosLogs.addAll(logs);
+        try (Jedis jedis = jedisPool.getResource()) {
+            Set<String> logKeys = jedis.keys("log:producto:*");
+            List<String> todosLosLogs = new ArrayList<>();
+            for (String logKey : logKeys) {
+                List<String> logs = jedis.lrange(logKey, 0, -1);
+                for (String log : logs) {
+                    todosLosLogs.add(log);
+                }
+            }
+            todosLosLogs.sort(new LogComparator());
+            return todosLosLogs;
         }
-        return todosLosLogs;
     }
+
 }

@@ -74,6 +74,8 @@ public class Sistema {
         }
     }
 
+
+
     public Producto recuperarProducto(String nombreProducto) {
         Producto producto = new Producto(nombreProducto);
         return producto;
@@ -85,6 +87,10 @@ public class Sistema {
 
     public List<Document> obtenerTodosLosProductos() {
         return productService.obtenerTodosLosProductos();
+    }
+
+    public List<String> obtenerProductosTexto() {
+        return productService.obtenerProductosTexto();
     }
 
     public Document obtenerProductoPorNombre(String nombreProducto) {

@@ -45,8 +45,8 @@ public class ProductService {
         List<String> productos = new ArrayList<>();
         FindIterable<Document> iterador = collection.find();
         for (Document doc : iterador) {
-            String nombre = doc.getString("name");
-            Double precio = doc.getDouble("price");
+            String nombre = doc.getString("nombre");
+            Double precio = doc.getDouble("precio");
             productos.add(nombre + " - $" + precio);
         }
         return productos;

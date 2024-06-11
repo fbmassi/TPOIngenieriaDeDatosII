@@ -21,7 +21,7 @@ public class PanelIniciarSesionAdmin extends JFrame{
         setSize(500, 500);
         setLocationRelativeTo(null);
         panelControlAdmin = new PanelControlAdmin();
-        panelControlAdmin.setPanelIniciarSesion(this);
+        panelControlAdmin.setPanelIniciarSesionAdmin(this);
         errorDeInicioDeSesion = new ErrorDeInicioDeSesion();
 
         atrásButton.addActionListener(new ActionListener() {

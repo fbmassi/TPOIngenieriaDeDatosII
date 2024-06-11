@@ -1,6 +1,7 @@
 package interfaces;
 
 import controladores.Administrador;
+import controladores.Sistema;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -12,7 +13,7 @@ public class PanelControlAdmin extends JFrame{
     private JButton atrásButton;
     private JPanel panel;
     private JButton crearProductosButton;
-    private PanelIniciarSesionAdmin panelIniciarSesion;
+    private PanelIniciarSesionAdmin panelIniciarSesionAdmin;
     private PanelModificaciónDeProductos panelModificaciónDeProductos;
     private PanelCrearProductos panelCrearProductos;
     private PanelControlDeLog panelControlDeLog;
@@ -26,7 +27,7 @@ public class PanelControlAdmin extends JFrame{
         panelModificaciónDeProductos = new PanelModificaciónDeProductos();
         panelModificaciónDeProductos.setPanelControlAdmin(this);
         panelCrearProductos = new PanelCrearProductos();
-        panelCrearProductos = new PanelCrearProductos();
+        panelCrearProductos.setPanelControlAdmin(this);
 
 
         atrásButton.addActionListener(new ActionListener() {
@@ -35,7 +36,7 @@ public class PanelControlAdmin extends JFrame{
                 setVisible(false);
                 administrador.cerrarSesion();
                 administrador = null;
-                panelIniciarSesion.getPanelAdministradores().getPanelPrincipal().setVisible(true);
+                panelIniciarSesionAdmin.getPanelAdministradores().getPanelPrincipal().setVisible(true);
             }
         });
         modificarProductosButton.addActionListener(new ActionListener() {
@@ -54,19 +55,19 @@ public class PanelControlAdmin extends JFrame{
         });
     }
 
-    public PanelIniciarSesionAdmin getPanelIniciarSesion() {
-        return panelIniciarSesion;
-    }
-
-    public void setPanelIniciarSesion(PanelIniciarSesionAdmin panelIniciarSesion) {
-        this.panelIniciarSesion = panelIniciarSesion;
-    }
-
     public Administrador getAdministrador() {
         return administrador;
     }
 
     public void setAdministrador(Administrador administrador) {
         this.administrador = administrador;
+    }
+
+    public PanelIniciarSesionAdmin getPanelIniciarSesionAdmin() {
+        return panelIniciarSesionAdmin;
+    }
+
+    public void setPanelIniciarSesionAdmin(PanelIniciarSesionAdmin panelIniciarSesionAdmin) {
+        this.panelIniciarSesionAdmin = panelIniciarSesionAdmin;
     }
 }

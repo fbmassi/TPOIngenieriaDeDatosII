@@ -11,7 +11,7 @@ public class PanelAdministradores extends JFrame{
     private JPanel panel;
     private PanelPrincipal panelPrincipal;
     private PanelCrearAdmin panelCrearAdmin;
-    private PanelIniciarSesionAdmin panelIniciarSesion;
+    private PanelIniciarSesionAdmin panelIniciarSesionAdmin;
 
     public PanelAdministradores() {
 
@@ -20,9 +20,9 @@ public class PanelAdministradores extends JFrame{
         setSize(500, 500);
         setLocationRelativeTo(null);
         panelCrearAdmin = new PanelCrearAdmin();
-        panelIniciarSesion = new PanelIniciarSesionAdmin();
+        panelIniciarSesionAdmin = new PanelIniciarSesionAdmin();
         panelCrearAdmin.setPanelAdministradores(this);
-        panelIniciarSesion.setPanelAdministradores(this);
+        panelIniciarSesionAdmin.setPanelAdministradores(this);
 
 
         crearAdministradorButton.addActionListener(new ActionListener() {
@@ -43,7 +43,7 @@ public class PanelAdministradores extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
-                panelIniciarSesion.setVisible(true);
+                panelIniciarSesionAdmin.setVisible(true);
             }
         });
     }
@@ -57,10 +57,10 @@ public class PanelAdministradores extends JFrame{
     }
 
     public PanelIniciarSesionAdmin getPanelIniciarSesion() {
-        return panelIniciarSesion;
+        return panelIniciarSesionAdmin;
     }
 
     public void setPanelIniciarSesion(PanelIniciarSesionAdmin panelIniciarSesion) {
-        this.panelIniciarSesion = panelIniciarSesion;
+        this.panelIniciarSesionAdmin = panelIniciarSesion;
     }
 }

@@ -26,13 +26,6 @@ public class PanelCrearProductos extends JFrame{
         setContentPane(panel);
         setSize(500, 500);
         setLocationRelativeTo(null);
-        sistema = panelControlAdmin.getPanelIniciarSesion().getPanelAdministradores().getPanelPrincipal().getSistema();
-        administrador = panelControlAdmin.getAdministrador();
-
-        List<String> products = sistema.obtenerProductosTexto();
-        for (String product: products) {
-            productos.addItem(product);
-        }
 
         atrasButton.addActionListener(new ActionListener() {
             @Override
@@ -85,5 +78,13 @@ public class PanelCrearProductos extends JFrame{
 
     public void setPanelControlAdmin(PanelControlAdmin panelControlAdmin) {
         this.panelControlAdmin = panelControlAdmin;
+    }
+
+    public void setSistema(Sistema sistema) {
+        this.sistema = sistema;
+    }
+
+    public void setAdministrador(Administrador administrador) {
+        this.administrador = administrador;
     }
 }

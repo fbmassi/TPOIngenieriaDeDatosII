@@ -27,18 +27,11 @@ public class Administrador {
         System.gc();
     }
 
-    public void agregarProducto(String nombreProducto, String descripcion, String strPrecio) {
-        String devolver;
-        try {
-            double precio = Double.parseDouble(strPrecio);
-            new Producto(nombreProducto, descripcion, precio);
-            Producto producto = new Producto(nombreProducto);
-            CambioProducto cambioProducto = new CambioProducto(producto, this.getUsuario());
-            cambioProducto.registrarCreacionenLog();
-        } catch (NumberFormatException e) {
-            devolver = "Error: '" + strPrecio + "' no es un número válido.";
-            System.err.println(devolver);
-        }
+    public void agregarProducto(String nombreProducto, String descripcion, double precio) {
+        new Producto(nombreProducto, descripcion, precio);
+        Producto producto = new Producto(nombreProducto);
+        CambioProducto cambioProducto = new CambioProducto(producto, this.getUsuario());
+        cambioProducto.registrarCreacionenLog();
     }
 
     public void eliminarProducto(String nombreProducto) {

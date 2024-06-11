@@ -45,9 +45,10 @@ public class ProductService {
         List<String> productos = new ArrayList<>();
         FindIterable<Document> iterador = collection.find();
         for (Document doc : iterador) {
-            String nombre = doc.getString("name");
-            Double precio = doc.getDouble("price");
-            productos.add(nombre + " - $" + precio);
+            String nombre = doc.getString("nombre");
+            String descripción = doc.getString("descripcion");
+            Double precio = doc.getDouble("precio");
+            productos.add(nombre + " - " + descripción + " - $" + precio);
         }
         return productos;
     }
@@ -78,5 +79,18 @@ public class ProductService {
         UpdateResult result = collection.updateOne( Filters.eq("nombre", nombreProducto), Updates.set("descripcion", nuevaDescripcion));
         return result.getModifiedCount() > 0;
     }
+
+    public List<String> obtenerNombresProductos() {
+        List<String> nombresProductos = new ArrayList<>();
+        FindIterable<Document> iterador = collection.find();
+        for (Document doc : iterador) {
+            String nombre = doc.getString("nombre");
+            if (nombre != null) {
+                nombresProductos.add(nombre);
+            }
+        }
+        return nombresProductos;
+    }
+
 
 }

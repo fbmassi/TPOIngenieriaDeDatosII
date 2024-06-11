@@ -11,8 +11,11 @@ public class PanelControlAdmin extends JFrame{
     private JButton verOperacionesButton;
     private JButton atrásButton;
     private JPanel panel;
+    private JButton crearProductosButton;
     private PanelIniciarSesionAdmin panelIniciarSesion;
     private PanelModificaciónDeProductos panelModificaciónDeProductos;
+    private PanelCrearProductos panelCrearProductos;
+    private PanelControlDeLog panelControlDeLog;
     private Administrador administrador;
 
     public PanelControlAdmin() {
@@ -22,6 +25,8 @@ public class PanelControlAdmin extends JFrame{
         setLocationRelativeTo(null);
         panelModificaciónDeProductos = new PanelModificaciónDeProductos();
         panelModificaciónDeProductos.setPanelControlAdmin(this);
+        panelCrearProductos = new PanelCrearProductos();
+        panelCrearProductos = new PanelCrearProductos();
 
 
         atrásButton.addActionListener(new ActionListener() {
@@ -38,6 +43,13 @@ public class PanelControlAdmin extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
                 panelModificaciónDeProductos.setVisible(true);
+            }
+        });
+        crearProductosButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setVisible(false);
+                panelCrearProductos.setVisible(true);
             }
         });
     }

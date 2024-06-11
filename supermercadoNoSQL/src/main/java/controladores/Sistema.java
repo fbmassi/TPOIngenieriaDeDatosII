@@ -98,4 +98,6 @@ public class Sistema {
         return producto.getDocumentoProducto();
     }
 
+    public List<String> obtenerNombreProducto() { return productService.obtenerNombresProductos();}
+
 }

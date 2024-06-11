@@ -35,6 +35,13 @@ public class PanelControlCliente extends JFrame {
                 panelIniciarSesionCliente.getPanelClientes().getPanelPrincipal().setVisible(true);
             }
         });
+        iniciarCompraButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setVisible(false);
+                iniciarCompra.setVisible(true);
+            }
+        });
     }
 
     public PanelIniciarSesionCliente getPanelIniciarSesionCliente() {

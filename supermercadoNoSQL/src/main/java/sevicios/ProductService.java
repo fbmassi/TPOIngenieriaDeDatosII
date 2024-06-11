@@ -41,6 +41,17 @@ public class ProductService {
         return productos;
     }
 
+    public List<String> obtenerProductosTexto() {
+        List<String> productos = new ArrayList<>();
+        FindIterable<Document> iterador = collection.find();
+        for (Document doc : iterador) {
+            String nombre = doc.getString("name");
+            Double precio = doc.getDouble("price");
+            productos.add(nombre + " - $" + precio);
+        }
+        return productos;
+    }
+
     public long borrarTodosLosProductos() {
         DeleteResult result = collection.deleteMany(new Document());
         return result.getDeletedCount();

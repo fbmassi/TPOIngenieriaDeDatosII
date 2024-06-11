@@ -63,4 +63,5 @@ public class Producto {
     public void setPrecio( Double precio) { this.precio = precio; }
     public String getId() { return id; }
     public Document getDocumentoProducto() { return documentoProducto; }
+
 }

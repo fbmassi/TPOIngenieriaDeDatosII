@@ -11,6 +11,7 @@ public class PanelClientes extends JFrame {
     private JPanel panel;
     private PanelPrincipal panelPrincipal;
     private PanelCrearClientes panelCrearClientes;
+    private PanelIniciarSesionCliente panelIniciarSesionCliente;
 
     public PanelClientes() {
 
@@ -20,6 +21,8 @@ public class PanelClientes extends JFrame {
         setLocationRelativeTo(null);
         panelCrearClientes = new PanelCrearClientes();
         panelCrearClientes.setPanelClientes(this);
+        panelIniciarSesionCliente = new PanelIniciarSesionCliente();
+        panelIniciarSesionCliente.setPanelClientes(this);
 
         atrásButton.addActionListener(new ActionListener() {
             @Override
@@ -33,7 +36,13 @@ public class PanelClientes extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
                 panelCrearClientes.setVisible(true);
-
+            }
+        });
+        iniciarSesionButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setVisible(false);
+                panelIniciarSesionCliente.setVisible(true);
             }
         });
     }

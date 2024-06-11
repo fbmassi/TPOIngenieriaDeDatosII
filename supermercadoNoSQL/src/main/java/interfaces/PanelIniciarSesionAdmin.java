@@ -12,15 +12,17 @@ public class PanelIniciarSesionAdmin extends JFrame{
     private JButton atrásButton;
     private PanelAdministradores panelAdministradores;
     private PanelControlAdmin panelControlAdmin;
+    private ErrorDeInicioDeSesion errorDeInicioDeSesion;
 
     public PanelIniciarSesionAdmin() {
 
-        setTitle("Panel Iniciar Sesion");
+        setTitle("Panel Iniciar Sesion Administrador");
         setContentPane(panel);
         setSize(500, 500);
         setLocationRelativeTo(null);
         panelControlAdmin = new PanelControlAdmin();
         panelControlAdmin.setPanelIniciarSesion(this);
+        errorDeInicioDeSesion = new ErrorDeInicioDeSesion();
 
         atrásButton.addActionListener(new ActionListener() {
             @Override
@@ -39,6 +41,9 @@ public class PanelIniciarSesionAdmin extends JFrame{
                 if (panelAdministradores.getPanelPrincipal().getSistema().iniciarSesionAdmin(usuario, contraseña)) {
                     setVisible(false);
                     panelControlAdmin.setVisible(true);
+                    panelControlAdmin.setAdministrador(panelAdministradores.getPanelPrincipal().getSistema().recupararAdmin(usuario, contraseña));
+                } else {
+                    errorDeInicioDeSesion.setVisible(true);
                 };
             }
         });

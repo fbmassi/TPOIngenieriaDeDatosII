@@ -1,5 +1,7 @@
 package interfaces;
 
+import controladores.Administrador;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,6 +13,7 @@ public class PanelControlAdmin extends JFrame{
     private JPanel panel;
     private PanelIniciarSesionAdmin panelIniciarSesion;
     private PanelModificaciónDeProductos panelModificaciónDeProductos;
+    private Administrador administrador;
 
     public PanelControlAdmin() {
         setTitle("Panel de Control de Administrador");
@@ -25,6 +28,8 @@ public class PanelControlAdmin extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
+                administrador.cerrarSesion();
+                administrador = null;
                 panelIniciarSesion.getPanelAdministradores().getPanelPrincipal().setVisible(true);
             }
         });
@@ -43,5 +48,13 @@ public class PanelControlAdmin extends JFrame{
 
     public void setPanelIniciarSesion(PanelIniciarSesionAdmin panelIniciarSesion) {
         this.panelIniciarSesion = panelIniciarSesion;
+    }
+
+    public Administrador getAdministrador() {
+        return administrador;
+    }
+
+    public void setAdministrador(Administrador administrador) {
+        this.administrador = administrador;
     }
 }

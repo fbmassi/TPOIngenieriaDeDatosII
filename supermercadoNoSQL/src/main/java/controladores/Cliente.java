@@ -17,9 +17,9 @@ public class Cliente {
         this.clienteService = new ClienteService();
         this.documentoCliente = clienteService.obtenerCliente(nombre, documentoIdentidad);
         setId(getDocumentoCliente().getObjectId("_id").toString());
-        setNombre(getDocumentoCliente().getObjectId("nombre").toString());
-        setDireccion(getDocumentoCliente().getObjectId("direccion").toString());
-        setDocumentoIdentidad(getDocumentoCliente().getObjectId("documento_identidad").toString());
+        setNombre(documentoCliente.getString("nombre"));
+        setDireccion(documentoCliente.getString("direccion"));
+        setDocumentoIdentidad(documentoCliente.getString("documento_identidad"));
     }
 
     private String id;

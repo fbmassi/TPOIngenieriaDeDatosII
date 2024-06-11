@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-public class PanelIniciarCompra {
+public class PanelIniciarCompra extends JFrame {
     private JPanel panel;
     private JComboBox<String> comboBoxProductos;
     private JTextField cantidadTextField;
@@ -15,14 +15,22 @@ public class PanelIniciarCompra {
     private JButton volverAlEstadoAnteriorButton;
     private JButton volverAtrasButton;
     private JButton verCarritoButton;
-    private PanelClientes panelClientes;
+    private PanelClientes panelClientes ;
 
     public PanelIniciarCompra() {
-        List<String> products = panelClientes.getPanelPrincipal().getSistema().obtenerProductosTexto();
+
+        setTitle("Panel Iniciar Compra");
+        setContentPane(panel);
+        setSize(500, 500);
+        setLocationRelativeTo(null);
+
+        //panelClientes = new PanelClientes();
+
+        /*List<String> products = panelClientes.getPanelPrincipal().getSistema().obtenerProductosTexto();
         for (String product : products) {
             comboBoxProductos.addItem(product);
         }
-
+        */
 
         agregarAlCarritoButton.addActionListener(new ActionListener() {
             @Override

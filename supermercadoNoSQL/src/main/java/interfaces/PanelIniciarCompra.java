@@ -15,7 +15,8 @@ public class PanelIniciarCompra extends JFrame {
     private JButton volverAlEstadoAnteriorButton;
     private JButton volverAtrasButton;
     private JButton verCarritoButton;
-    private PanelClientes panelClientes ;
+    private PanelIniciarCompra panelIniciarCompra;
+    private PanelControlCliente panelControlCliente;
 
     public PanelIniciarCompra() {
 
@@ -24,7 +25,6 @@ public class PanelIniciarCompra extends JFrame {
         setSize(500, 500);
         setLocationRelativeTo(null);
 
-        //panelClientes = new PanelClientes();
 
         /*List<String> products = panelClientes.getPanelPrincipal().getSistema().obtenerProductosTexto();
         for (String product : products) {
@@ -41,7 +41,8 @@ public class PanelIniciarCompra extends JFrame {
         volverAtrasButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                setVisible(false);
+                panelControlCliente.getPanelIniciarSesionCliente().setVisible(true);
             }
         });
         confirmarCompraButton.addActionListener(new ActionListener() {
@@ -69,5 +70,13 @@ public class PanelIniciarCompra extends JFrame {
             }
         });
     }
+    public PanelIniciarCompra getPanelIniciarCompra() { return panelIniciarCompra;}
+    public void setPanelIniciarCompra(PanelIniciarCompra panelIniciarCompra) {
+        this.panelIniciarCompra= panelIniciarCompra;
+    }
 
+    public PanelControlCliente getPanelControlCliente() { return panelControlCliente;}
+    public void setPanelControlCliente(PanelControlCliente panelControlCliente) {
+        this.panelControlCliente = panelControlCliente;
+    }
 }

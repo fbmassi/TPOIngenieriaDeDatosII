@@ -6,6 +6,7 @@ import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
 import org.bson.Document;
 import org.bson.conversions.Bson;
+import org.bson.types.ObjectId;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ public class ClienteService {
     private URLService urlService = new URLService();
     private MongoCollection<Document> collectionCliente;
     private MongoCollection<Document> collectionProductos;
+    private MongoCollection<Document> pedidosCollection;
 
     public ClienteService() {
         MongoClient mongoClient = MongoClients.create(urlService.getConnectionStringMongoDB());
@@ -24,6 +26,8 @@ public class ClienteService {
         this.collectionCliente = databasePerfiles.getCollection(urlService.getClientesCollectionMongoDB());
         MongoDatabase databaseProductos = mongoClient.getDatabase(urlService.getDbSupermercadoMongoDB());
         this.collectionProductos = databaseProductos.getCollection(urlService.getProductsCollectionMongoDB());
+        MongoDatabase databasePedidos = mongoClient.getDatabase(urlService.getDbComprasMongoDB());
+        this.pedidosCollection = databasePedidos.getCollection(urlService.getPedidosCollectionMongoDB());
     }
 
     public String crearCliente(String nombre, String direccion, String documentoIdentidad) {
@@ -109,6 +113,16 @@ public class ClienteService {
         Document query = new Document("nombre", nombreProducto);
         Document producto = collectionProductos.find(query).first();
         return producto;
+    }
+
+    public List<String> obtenerIdsDePedidosPorCliente(String cliente) {
+        List<String> idsDePedidos = new ArrayList<>();
+        Document query = new Document("client", cliente);
+        for (Document doc : pedidosCollection.find(query)) {
+            ObjectId id = doc.getObjectId("_id");
+            idsDePedidos.add(id.toHexString());
+        }
+        return idsDePedidos;
     }
 
 }

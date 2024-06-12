@@ -76,6 +76,7 @@ public class Main {
         franco.volverAEstadoAnterior(carrito);
         franco.volverAEstadoAnterior(carrito);
         franco.modificarProducto(carrito, "Laptop Apple MacBook Pro", 15);
+
         EstadoCarrito estadoCarritoActual7 = carrito.getEstadoCarritoActual();
         List<ItemCarrito> productos7 = estadoCarritoActual7.getProductos();
         for (ItemCarrito itemCarrito: productos7){
@@ -89,7 +90,7 @@ public class Main {
             System.out.println(itemCarrito.getProducto().getNombreProducto() + " " + itemCarrito.getProducto().getPrecio() + " " + itemCarrito.getCantidad());
         }
 
-
+        //franco.confirmarPedido(carrito,"");
 
 
 

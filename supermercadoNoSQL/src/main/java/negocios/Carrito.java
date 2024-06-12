@@ -1,14 +1,13 @@
 package negocios;
 
 import controladores.*;
-import sevicios.CarritoService;
 
 import java.util.*;
 
 public class Carrito {
 
-    public Carrito() {
-        carritoService = new CarritoService();
+    public Carrito(Cliente cliente) {
+        setCliente(cliente);
         estadoCarritoActual = new EstadoCarrito();
         estados = new ArrayList<EstadoCarrito>();
         estados.add(estadoCarritoActual);
@@ -20,7 +19,6 @@ public class Carrito {
     private EstadoCarrito estadoCarritoActual;
     private List<EstadoCarrito> estados;
     private int indiceCarrito;
-    private CarritoService carritoService;
 
     public void guardarEstado() {
         if (estadoCarritoActual == estados.get(indiceCarrito)) {
@@ -51,29 +49,11 @@ public class Carrito {
         }
     }
 
-    public Pedido generarPedido(EstadoCarrito estado) {
-        // TODO implement here
-        return null;
-    }
-
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
-
-    public EstadoCarrito getEstadoCarritoActual() {
-        return estadoCarritoActual;
-    }
-
-    public void setEstadoCarritoActual(EstadoCarrito estadoCarritoActual) {
-        this.estadoCarritoActual = estadoCarritoActual;
-    }
-
-    public List<EstadoCarrito> getEstados() {
-        return estados;
-    }
+    public void generarPedido(Carrito carrito, String descuento) { new Pedido(this, descuento); }
+    public Cliente getCliente() { return cliente; }
+    public void setCliente(Cliente cliente) { this.cliente = cliente; }
+    public EstadoCarrito getEstadoCarritoActual() { return estadoCarritoActual; }
+    public void setEstadoCarritoActual(EstadoCarrito estadoCarritoActual) { this.estadoCarritoActual = estadoCarritoActual; }
+    public List<EstadoCarrito> getEstados() { return estados; }
 
 }

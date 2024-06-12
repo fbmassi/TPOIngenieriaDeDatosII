@@ -12,6 +12,10 @@ public class URLService {
     private String administradoresCollectionMongoDB = "administradores";
     private String productsCollectionMongoDB = "productos";
     private String pedidosCollectionMongoDB = "pedidos";
+    private String descuentosCollectionMongoDB = "codigosDeDescuento";
+    private String pagosCollectionMongoDB = "pagos";
+    private String facturasCollectionMongoDB = "facturas";
+
 
     //Metodos MongoDB
     public String getConnectionStringMongoDB() { return connectionStringMongoDB; }
@@ -33,6 +37,11 @@ public class URLService {
     public void setDbComprasMongoDB(String dbComprasMongoDB) {
         this.dbComprasMongoDB = dbComprasMongoDB;
     }
+    public String getDescuentosCollectionMongoDB() { return descuentosCollectionMongoDB; }
+    public String getPagosCollectionMongoDB() { return pagosCollectionMongoDB; }
+    public void setPagosCollectionMongoDB(String pagosCollectionMongoDB) { this.pagosCollectionMongoDB = pagosCollectionMongoDB; }
+    public String getFacturasCollectionMongoDB() { return facturasCollectionMongoDB; }
+    public void setFacturasCollectionMongoDB(String facturasCollectionMongoDB) { this.facturasCollectionMongoDB = facturasCollectionMongoDB; }
 
     //Atributos Redis
     private String redisHost = "redis-17084.c308.sa-east-1-1.ec2.redns.redis-cloud.com";

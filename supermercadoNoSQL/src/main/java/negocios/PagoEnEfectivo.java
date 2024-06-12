@@ -1,14 +1,12 @@
 package negocios;
 
-/**
- * 
- */
+import java.util.List;
+
 public class PagoEnEfectivo extends Pago {
 
-    /**
-     * Default constructor
-     */
-    public PagoEnEfectivo() {
+    public PagoEnEfectivo(List<String> pedidos) {
+        super(pedidos);
+        setMedio("EFECTIVO");
     }
 
 }

@@ -50,7 +50,7 @@ public class Cliente {
     }
 
     public Carrito iniciarCompra() {
-        return new Carrito();
+        return new Carrito(this);
     }
 
     public void agregarProducto(Carrito carrito, String nombreProducto, int cantidad) {
@@ -87,8 +87,10 @@ public class Cliente {
         carrito.recuperarEstado();
     }
 
-    public void confirmarPedido(Carrito carrito) {
-        // TODO implement here
+    public void confirmarPedido(Carrito carrito, String codigoDeDescuento) {
+        carrito.generarPedido(carrito, codigoDeDescuento);
+        carrito = null;
+        System.gc();
     }
 
     private List<Pedido> buscarPedidos() {

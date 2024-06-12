@@ -17,6 +17,7 @@ public class PanelIniciarCompra extends JFrame {
     private JButton verCarritoButton;
     private PanelIniciarCompra panelIniciarCompra;
     private PanelControlCliente panelControlCliente;
+    private PanelCarrito panelCarrito;
 
     public PanelIniciarCompra() {
 
@@ -25,7 +26,7 @@ public class PanelIniciarCompra extends JFrame {
         setSize(500, 500);
         setLocationRelativeTo(null);
 
-
+        panelCarrito=new PanelCarrito();
         /*List<String> products = panelClientes.getPanelPrincipal().getSistema().obtenerProductosTexto();
         for (String product : products) {
             comboBoxProductos.addItem(product);
@@ -35,6 +36,9 @@ public class PanelIniciarCompra extends JFrame {
         agregarAlCarritoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                //String articulo = comboBoxProductos.getSelectedItem();
+                String cant=  cantidadTextField.getText();
+                int cantidad = Integer.parseInt(cant);
 
             }
         });
@@ -66,7 +70,8 @@ public class PanelIniciarCompra extends JFrame {
         verCarritoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                setVisible(false);
+                panelCarrito.setVisible(true);
             }
         });
     }

@@ -31,9 +31,8 @@ public class LogService {
                 Date fecha2 = dateFormatter.parse(fechaStr2);
                 return fecha2.compareTo(fecha1); // Orden descendente
             } catch (ParseException e) {
-                // Manejar error de análisis de fecha
                 e.printStackTrace();
-                return 0; // No se puede comparar, devuelve 0
+                return 0;
             }
         }
 

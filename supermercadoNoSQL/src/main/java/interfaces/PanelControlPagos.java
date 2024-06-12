@@ -15,7 +15,6 @@ public class PanelControlPagos extends JFrame {
     private PanelFacturas panelFacturas;
     private PanelPagosPendientes pagosPendientes;
 
-
     public PanelControlPagos() {
 
         setTitle("Control de Pagos");

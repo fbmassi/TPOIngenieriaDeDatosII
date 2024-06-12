@@ -12,6 +12,7 @@ public class PanelFacturas extends JFrame{
     private JButton verFacturaButton;
     private JButton volverAtrasButton;
     private PanelControlPagos panelControlPagos;
+    private PanelVerFacturas panelVerFacturas;
 
     public PanelFacturas() {
 
@@ -19,8 +20,8 @@ public class PanelFacturas extends JFrame{
         setContentPane(panel);
         setSize(500,500);
         setLocationRelativeTo(null);
-        //panelControlPagos = new PanelControlPagos();
-        //panelControlPagos.setPanelFacturas(this);
+        panelVerFacturas = new PanelVerFacturas();
+        panelVerFacturas.setPanelFacturas(this);
 
         verFacturaComboBox.addActionListener(new ActionListener() {
             @Override
@@ -31,7 +32,8 @@ public class PanelFacturas extends JFrame{
         verFacturaButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                setVisible(false);
+                panelVerFacturas.setVisible(true);
             }
         });
         volverAtrasButton.addActionListener(new ActionListener() {

@@ -58,11 +58,9 @@ public class ProductService {
                     Double precio = Double.parseDouble((String) precioObj);
                     productos.add(nombre + " - " + descripcion + " - $" + precio);
                 } catch (NumberFormatException e) {
-                    // Maneja el error si no se puede convertir a Double
                     System.err.println("Error: No se puede convertir el precio a Double para el producto: " + nombre);
                 }
             } else {
-                // Maneja otros tipos de datos para el precio si es necesario
                 System.err.println("Error: Tipo de dato no soportado para el precio para el producto: " + nombre);
             }
         }

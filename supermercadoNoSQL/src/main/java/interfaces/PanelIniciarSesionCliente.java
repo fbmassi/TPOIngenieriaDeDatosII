@@ -1,5 +1,7 @@
 package interfaces;
 
+import controladores.Cliente;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -36,10 +38,11 @@ public class PanelIniciarSesionCliente extends JFrame {
                 String DNI = DNITextField.getText();
                 nombreTextField.setText("");
                 DNITextField.setText("");
-                if (panelClientes.getPanelPrincipal().getSistema().iniciarSesionCliente(nombre, DNI)) {
+                Cliente cliente = new Cliente(nombre, DNI);
+                if (cliente.getSesion()) {
                     setVisible(false);
                     panelControlCliente.setVisible(true);
-                    panelControlCliente.setCliente(panelClientes.getPanelPrincipal().getSistema().recuperarCliente(nombre, DNI));
+                    panelControlCliente.setCliente(cliente);
                 } else {
                     JOptionPane.showMessageDialog(panel, "Error al iniciar sesion. Nombre o DNI incorrecto.");
                 };

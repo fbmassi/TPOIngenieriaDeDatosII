@@ -36,14 +36,14 @@ public class Carrito {
     }
 
     public void recuperarEstado() {
-        if (indiceCarrito != estados.size() ) {
+        if (indiceCarrito != estados.size() - 1) {
             indiceCarrito++;
             setEstadoCarritoActual(estados.get(indiceCarrito));
         }
     }
 
     public void volverAEstadoAnterior() {
-        if (!estados.isEmpty()) {
+        if (indiceCarrito != 0) {
             indiceCarrito--;
             setEstadoCarritoActual(estados.get(indiceCarrito));
         }

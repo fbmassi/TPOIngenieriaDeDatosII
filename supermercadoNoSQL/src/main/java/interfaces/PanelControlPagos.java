@@ -1,10 +1,11 @@
 package interfaces;
 
+import org.bson.Document;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
+import java.util.List;
 
 public class PanelControlPagos extends JFrame {
     private JPanel panel;
@@ -13,7 +14,7 @@ public class PanelControlPagos extends JFrame {
     private JButton volverAtrasButton;
     private PanelControlCliente panelControlCliente;
     private PanelFacturas panelFacturas;
-    private PanelPagosPendientes pagosPendientes;
+    private PanelRealizarPago panelRealizarPago;
 
     public PanelControlPagos() {
 
@@ -23,11 +24,14 @@ public class PanelControlPagos extends JFrame {
         setLocationRelativeTo(null);
         panelFacturas = new PanelFacturas();
         panelFacturas.setPanelControlPagos(this);
+        panelRealizarPago = new PanelRealizarPago();
+        panelRealizarPago.setPanelControlPagos(this);
 
         facturasButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
+                panelFacturas.llenarLista();
                 panelFacturas.setVisible(true);
             }
         });
@@ -35,16 +39,33 @@ public class PanelControlPagos extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
-                //panelPagosPendientes.setVisible(true);
-                //
+                panelRealizarPago.llenarLista();
+                panelRealizarPago.setVisible(true);
             }
         });
         volverAtrasButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
-                //getPanelControlCliente.setVisible(true);
+                panelControlCliente.setVisible(true);
             }
         });
     }
+
+    public void setPanelControlCliente(PanelControlCliente panelControlCliente) {
+        this.panelControlCliente = panelControlCliente;
+    }
+
+    public PanelControlCliente getPanelControlCliente() {
+        return this.panelControlCliente;
+    }
+
+    public PanelRealizarPago getPanelRealizarPago() {
+        return panelRealizarPago;
+    }
+
+    public void setPanelRealizarPago(PanelRealizarPago panelRealizarPago) {
+        this.panelRealizarPago = panelRealizarPago;
+    }
+
 }

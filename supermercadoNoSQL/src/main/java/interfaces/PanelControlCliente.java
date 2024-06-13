@@ -1,6 +1,7 @@
 package interfaces;
 
 import controladores.Cliente;
+import negocios.Carrito;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -24,7 +25,9 @@ public class PanelControlCliente extends JFrame {
         setSize(500, 500);
         setLocationRelativeTo(null);
         iniciarCompra = new PanelIniciarCompra();
+        iniciarCompra.setPanelControlCliente(this);
         panelControlPagos = new PanelControlPagos();
+        panelControlPagos.setPanelControlCliente(this);
 
         atrásButton.addActionListener(new ActionListener() {
             @Override
@@ -39,7 +42,17 @@ public class PanelControlCliente extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
+                Carrito carrito = cliente.iniciarCompra();
+                iniciarCompra.setCarrito(carrito);
+                iniciarCompra.llenarListas();
                 iniciarCompra.setVisible(true);
+            }
+        });
+        controlDePagosButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setVisible(false);
+                panelControlPagos.setVisible(true);
             }
         });
     }

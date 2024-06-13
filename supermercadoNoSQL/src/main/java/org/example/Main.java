@@ -15,7 +15,9 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        //PanelPrincipal panelPrincipal = new PanelPrincipal();
+        PanelPrincipal panelPrincipal = new PanelPrincipal();
+
+        /*
         Cliente franco = new Cliente("Franco", "42724252");
         Carrito carrito = franco.iniciarCompra();
         franco.agregarProducto(carrito, "Laptop Apple MacBook Pro", 2);
@@ -92,10 +94,7 @@ public class Main {
 
         //franco.confirmarPedido(carrito,"");
 
-
-
-
-
+         */
 
     }
 }

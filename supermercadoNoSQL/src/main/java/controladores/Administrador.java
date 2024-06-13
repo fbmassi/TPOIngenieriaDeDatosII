@@ -10,10 +10,13 @@ public class Administrador {
 
     public Administrador(String usuario, String contraseña) {
         this.adminService = new AdminService();
-        this.logService = new LogService();
-        setDocumentoAdmin(adminService.obtenerAdmin(usuario, contraseña));
-        setId(getDocumentoAdmin().getObjectId("_id").toString());
-        setUsuario(getDocumentoAdmin().getString("usuario"));
+        setSesion(iniciarSesion(usuario, contraseña));
+        if (sesion) {
+            this.logService = new LogService();
+            setDocumentoAdmin(adminService.obtenerAdmin(usuario, contraseña));
+            setId(getDocumentoAdmin().getObjectId("_id").toString());
+            setUsuario(getDocumentoAdmin().getString("usuario"));
+        }
     }
 
     private String id;
@@ -21,6 +24,11 @@ public class Administrador {
     private AdminService adminService;
     private LogService logService;
     private Document documentoAdmin;
+    private boolean sesion;
+
+    public boolean iniciarSesion(String usuario, String contraseña) {
+        return adminService.iniciarSesion(usuario, contraseña);
+    }
 
     public void cerrarSesion() {
         documentoAdmin = null;
@@ -59,14 +67,13 @@ public class Administrador {
     public void setUsuario(String usuario) {
         this.usuario = usuario;
     }
-    public void setId(String id) {
-        this.id = id;
-    }
+    public void setId(String id) { this.id = id; }
     public Document getDocumentoAdmin() {
         return documentoAdmin;
     }
     public void setDocumentoAdmin(Document documentoAdmin) {
         this.documentoAdmin = documentoAdmin;
     }
-
+    public boolean getSesion() { return sesion; }
+    public void setSesion(boolean sesion) { this.sesion = sesion; }
 }

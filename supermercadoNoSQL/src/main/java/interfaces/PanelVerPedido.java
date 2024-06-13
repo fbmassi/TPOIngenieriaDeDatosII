@@ -50,15 +50,14 @@ public class PanelVerPedido extends JFrame{
 
     public void mostrarPedido() {
         String setear = "<html>";
-        setear += "<p> " + "PRODUCTOS" + " </p>";
+        setear += "<p> " + "PRODUCTOS:" + " </p>";
         List<Document> productos = (List<Document>) pedido.get("productos");
         for (Document doc: productos) {
-            setear += "<p>" + doc.getString("producto") + " - " + doc.getDouble("precio") + " - " + doc.getInteger("cantidad") + "</p>";
+            setear += "<p>" + doc.getString("producto") + " - Precio: $" + String.format("%.2f",doc.getDouble("precio")) + " - Cantidad:" + doc.getInteger("cantidad") + "</p>";
         }
         setear += "<p> </p>";
-        setear += "<p> " + "DESCUENTO: " + pedido.getInteger("descuentos") + " </p>";
-        setear += "<p> </p>";
-        setear += "<p> " + "IMPORTE A PAGAR: " + pedido.getDouble("importe_final") + " </p>";
+        setear += "<p> " + "DESCUENTO: %" + pedido.getInteger("descuentos") + " </p>";
+        setear += "<p> " + "IMPORTE A PAGAR: $" + String.format("%.2f",pedido.getDouble("importe_final")) + " </p>";
         setear += "</html>";
         textoPedido.setText(setear);
     }

@@ -39,7 +39,7 @@ public class PanelPagarEnEfectivo extends JFrame{
                     panelRealizarPago.getPanelControlPagos().getPanelControlCliente().getCliente().generarFactura(id);
                 }
                 panelRealizarPago.getPanelControlPagos().getPanelControlCliente().getCliente().pagarPedidosEnEfectivo(pedidosAPagar);
-                importe.setText("");
+                importe.setText("0.0");
             }
         });
     }

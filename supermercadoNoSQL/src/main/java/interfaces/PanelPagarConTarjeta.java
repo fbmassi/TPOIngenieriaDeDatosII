@@ -44,7 +44,7 @@ public class PanelPagarConTarjeta extends JFrame {
                     panelRealizarPago.getPanelControlPagos().getPanelControlCliente().getCliente().generarFactura(id);
                 }
                 panelRealizarPago.getPanelControlPagos().getPanelControlCliente().getCliente().pagarPedidosConTarjeta(pedidosAPagar, (String) operadores.getSelectedItem(), numeroDeTarjetaTextField.getText(), codigoDeSeguridadTextField.getText());
-                importe.setText("");
+                importe.setText("0.0");
                 numeroDeTarjetaTextField.setText("");
                 codigoDeSeguridadTextField.setText("");
             }

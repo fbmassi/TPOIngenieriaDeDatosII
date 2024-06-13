@@ -30,11 +30,6 @@ public class Sistema {
         }
     }
 
-    public Cliente recuperarCliente(String nombre, String documentoIdentidad) {
-        Cliente cliente = new Cliente(nombre, documentoIdentidad);
-        return cliente;
-    }
-
     private boolean existeCliente(String nombre, String documentoIdentidad) {
         return clienteService.obtenerCliente(nombre, documentoIdentidad) != null;
     }
@@ -73,8 +68,6 @@ public class Sistema {
             System.out.println(producto);
         }
     }
-
-
 
     public Producto recuperarProducto(String nombreProducto) {
         Producto producto = new Producto(nombreProducto);

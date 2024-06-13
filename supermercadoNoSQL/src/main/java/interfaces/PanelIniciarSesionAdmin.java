@@ -1,5 +1,7 @@
 package interfaces;
 
+import controladores.Administrador;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -36,12 +38,13 @@ public class PanelIniciarSesionAdmin extends JFrame{
                 String contraseña = contraseñaTextField.getText();
                 usuarioTextField.setText("");
                 contraseñaTextField.setText("");
-                if (panelAdministradores.getPanelPrincipal().getSistema().iniciarSesionAdmin(usuario, contraseña)) {
+                Administrador administrador = new Administrador(usuario, contraseña);
+                if (administrador.getSesion()) {
                     setVisible(false);
                     panelControlAdmin.setVisible(true);
-                    panelControlAdmin.setAdministrador(panelAdministradores.getPanelPrincipal().getSistema().recupararAdmin(usuario, contraseña));
+                    panelControlAdmin.setAdministrador(administrador);
                 } else {
-                    JOptionPane.showMessageDialog(panel, "Error en el inicio de sesion. Ususario o Contraseña incorrectos.");
+                    JOptionPane.showMessageDialog(panel, "Error en el inicio de sesion. Usuario o Contraseña incorrectos.");
                 };
             }
         });

@@ -19,6 +19,7 @@ public class ClienteService {
     private MongoCollection<Document> collectionCliente;
     private MongoCollection<Document> collectionProductos;
     private MongoCollection<Document> pedidosCollection;
+    private MongoCollection<Document> facturasCollection;
 
     public ClienteService() {
         MongoClient mongoClient = MongoClients.create(urlService.getConnectionStringMongoDB());
@@ -26,8 +27,9 @@ public class ClienteService {
         this.collectionCliente = databasePerfiles.getCollection(urlService.getClientesCollectionMongoDB());
         MongoDatabase databaseProductos = mongoClient.getDatabase(urlService.getDbSupermercadoMongoDB());
         this.collectionProductos = databaseProductos.getCollection(urlService.getProductsCollectionMongoDB());
-        MongoDatabase databasePedidos = mongoClient.getDatabase(urlService.getDbComprasMongoDB());
-        this.pedidosCollection = databasePedidos.getCollection(urlService.getPedidosCollectionMongoDB());
+        MongoDatabase databaseCompras = mongoClient.getDatabase(urlService.getDbComprasMongoDB());
+        this.pedidosCollection = databaseCompras.getCollection(urlService.getPedidosCollectionMongoDB());
+        this.facturasCollection = databaseCompras.getCollection(urlService.getFacturasCollectionMongoDB());
     }
 
     public String crearCliente(String nombre, String direccion, String documentoIdentidad) {
@@ -125,5 +127,30 @@ public class ClienteService {
         return idsDePedidos;
     }
 
-}
+    public List<ObjectId> obtenerPedidosPendientes(String nombreCliente) {
+        List<ObjectId> respuesta = new ArrayList<ObjectId>();
+        for (Document pedido: pedidosCollection.find()) {
+            if (pedido.getString("client").equals(nombreCliente) && pedido.getString("estado").equals("EN ESPERA")) {
+                respuesta.add(pedido.getObjectId("_id"));
+            }
+        }
+        return respuesta;
+    }
 
+    public Document obtenerPedido(ObjectId idPedido) {
+        Document query = new Document("_id", idPedido);
+        Document pedido = pedidosCollection.find(query).first();
+        return pedido;
+    }
+
+    public List<Document> obtenerFacturas(String nombreCliente) {
+        Document cliente = new Document("client", nombreCliente);
+        FindIterable<Document> iterable = facturasCollection.find(cliente);
+        List<Document> documents = new ArrayList<>();
+        for (Document doc : iterable) {
+            documents.add(doc);
+        }
+        return documents;
+    }
+
+}

@@ -2,6 +2,7 @@ package controladores;
 
 import negocios.*;
 import org.bson.Document;
+import org.bson.types.ObjectId;
 import sevicios.ClienteService;
 import java.awt.event.ActionListener;
 import java.sql.Struct;
@@ -17,13 +18,16 @@ public class Cliente {
 
     public Cliente(String nombre, String documentoIdentidad) {
         this.clienteService = new ClienteService();
-        setDocumentoCliente(clienteService.obtenerCliente(nombre, documentoIdentidad));
-        setId(getDocumentoCliente().getObjectId("_id").toString());
-        setNombre(documentoCliente.getString("nombre"));
-        setDireccion(documentoCliente.getString("direccion"));
-        setDocumentoIdentidad(documentoCliente.getString("documento_identidad"));
-        setDateFormatter(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
-        setUltimoInicioDeSesion();
+        setSesion(iniciarSesion(nombre, documentoIdentidad));
+        if (sesion) {
+            setDocumentoCliente(clienteService.obtenerCliente(nombre, documentoIdentidad));
+            setId(getDocumentoCliente().getObjectId("_id").toString());
+            setNombre(documentoCliente.getString("nombre"));
+            setDireccion(documentoCliente.getString("direccion"));
+            setDocumentoIdentidad(documentoCliente.getString("documento_identidad"));
+            setDateFormatter(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
+            setUltimoInicioDeSesion();
+        }
     }
 
     private String id;
@@ -36,10 +40,10 @@ public class Cliente {
     private Date ultimoInicioDeSesion;
     private ClienteService clienteService;
     private Document documentoCliente;
+    private boolean sesion;
 
 
     public boolean iniciarSesion(String nombre, String dni) {
-        ultimoInicioDeSesion = new Date();
         return clienteService.iniciarSesion(nombre, dni);
     }
 
@@ -89,42 +93,31 @@ public class Cliente {
 
     public void confirmarPedido(Carrito carrito, String codigoDeDescuento) {
         carrito.generarPedido(carrito, codigoDeDescuento);
-        carrito = null;
         System.gc();
     }
 
-    private List<Pedido> buscarPedidos() {
-        // TODO implement here
-        return null;
+    public void pagarPedidosEnEfectivo(List<ObjectId> pedidosPendientes) {
+        Pago pago = new PagoEnEfectivo(nombre, pedidosPendientes);
     }
 
-    public String mostrarPedidos(List pedidos) {
-        // TODO implement here
-        return "";
+    public void pagarPedidosConTarjeta(List<ObjectId> pedidosPendientes, String operador, String tarjeta, String codigo) {
+        Pago pago = new PagoConTarjeta(nombre, pedidosPendientes, operador, tarjeta,codigo);
     }
 
-    public Pedido seleccionarPedido(Date fecha) {
-        // TODO implement here
-        return null;
+    public void generarFactura(ObjectId id) {
+        new Factura(nombre, id);
     }
 
-    public void pagarPedido(Pedido pedido) {
-        // TODO implement here
+    public List<ObjectId> getPedidosPendientes() {
+        return clienteService.obtenerPedidosPendientes(nombre);
     }
 
-    private List<Factura> buscarFacturas() {
-        // TODO implement here
-        return null;
+    public Document getPedido(ObjectId id) {
+        return clienteService.obtenerPedido(id);
     }
 
-    public String mostrarFacturas(List<Factura> facturas) {
-        // TODO implement here
-        return "";
-    }
-
-    private ItemCarrito buscarItemCarrito(String nombreProducto) {
-        // TODO implement here
-        return null;
+    public List<Document> obtenerFacturasCliente() {
+        return clienteService.obtenerFacturas(nombre);
     }
 
     public String getNombre() { return nombre; }
@@ -145,4 +138,6 @@ public class Cliente {
     public void setId(String id) { this.id = id; }
     public void setDateFormatter(SimpleDateFormat dateFormatter) { this.dateFormatter = dateFormatter; }
     public SimpleDateFormat getDateFormatter() { return dateFormatter; }
+    public void setSesion(boolean sesion) { this.sesion = sesion; }
+    public boolean getSesion() { return sesion; }
 }

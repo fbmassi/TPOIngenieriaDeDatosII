@@ -41,6 +41,7 @@ public class PanelControlAdmin extends JFrame{
                 panelIniciarSesionAdmin.getPanelAdministradores().getPanelPrincipal().setVisible(true);
             }
         });
+
         modificarProductosButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -49,6 +50,7 @@ public class PanelControlAdmin extends JFrame{
                 panelModificaciónDeProductos.setVisible(true);
             }
         });
+
         crearProductosButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -57,6 +59,7 @@ public class PanelControlAdmin extends JFrame{
                 panelCrearProductos.setVisible(true);
             }
         });
+
         verOperacionesButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -70,16 +73,11 @@ public class PanelControlAdmin extends JFrame{
     public Administrador getAdministrador() {
         return administrador;
     }
-
     public void setAdministrador(Administrador administrador) {
         this.administrador = administrador;
     }
-
     public PanelIniciarSesionAdmin getPanelIniciarSesionAdmin() {
         return panelIniciarSesionAdmin;
     }
-
-    public void setPanelIniciarSesionAdmin(PanelIniciarSesionAdmin panelIniciarSesionAdmin) {
-        this.panelIniciarSesionAdmin = panelIniciarSesionAdmin;
-    }
+    public void setPanelIniciarSesionAdmin(PanelIniciarSesionAdmin panelIniciarSesionAdmin) { this.panelIniciarSesionAdmin = panelIniciarSesionAdmin; }
 }

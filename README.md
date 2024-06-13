@@ -24,7 +24,7 @@ Este proyecto tiene como objetivo construir una aplicación para gestionar pedid
 
 ## Justificación de Elección de Tecnologías
 
-## Implementación en la Nube
+### Implementación en la Nube
 Decidimos implementar nuestros servidores en la nube para asegurar que todos los miembros del equipo tuvieran acceso constante y uniforme a los mismos datos, minimizando las inconsistencias y facilitando la colaboración. Esta decisión también mejora la disponibilidad y escalabilidad de la aplicación, aprovechando la infraestructura robusta de la nube.
 
 ### Java

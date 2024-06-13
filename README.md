@@ -3,7 +3,7 @@
 ## Equipo
 
 1. Franco Massi
-2. Ivan Stoljemberg
+2. Ivan Stoljenberg
 3. Alex Fiel
 4. Martin Bejarano
 

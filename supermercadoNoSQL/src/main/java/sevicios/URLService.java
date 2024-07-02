@@ -3,8 +3,7 @@ package sevicios;
 public class URLService {
 
     //Atributos MongoDB
-    private String connectionStringMongoDB = "mongodb+srv://francomassi1:0kxEh0h6OkY4Wdba" +
-            "@cluster0.cvnmxkx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+    private String connectionStringMongoDB = "**************";
     private String dbPerfilesMongoDB = "perfiles";
     private String dbSupermercadoMongoDB = "supermercado";
     private String dbComprasMongoDB = "compras";
@@ -44,9 +43,9 @@ public class URLService {
     public void setFacturasCollectionMongoDB(String facturasCollectionMongoDB) { this.facturasCollectionMongoDB = facturasCollectionMongoDB; }
 
     //Atributos Redis
-    private String redisHost = "redis-17084.c308.sa-east-1-1.ec2.redns.redis-cloud.com";
+    private String redisHost = "************";
     private int redisPort = 17084;
-    private String redisPassword = "hDdLN1uyUp6FruxMqtal5VWsnr4gqlKo";
+    private String redisPassword = "**************";
 
     //Metodos Redis
     public String getRedisHost() {return redisHost;}
